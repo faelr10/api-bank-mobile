@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, Profile } from '@prisma/client';
-import { ICreateProfile, IProfileRepository } from './structure/structure';
+import { Account, PrismaClient, Profile } from '@prisma/client';
+import {
+  ICreateProfile,
+  IProfileRepository,
+  IUpdateAccountParams,
+} from './structure/structure';
 
 @Injectable()
 export class ProfileRepository implements IProfileRepository {
@@ -16,9 +20,23 @@ export class ProfileRepository implements IProfileRepository {
     });
   }
 
-  exists(where: Partial<Profile>): Promise<Profile> {
+  exists(where: Partial<Profile> | any, select?: object): Promise<any> {
     return this.prisma.profile.findFirst({
       where,
+      include: {
+        Account: true,
+      },
+    });
+  }
+
+  update(params: IUpdateAccountParams): Promise<Account> {
+    return this.prisma.account.update({
+      where: {
+        id: params.id,
+      },
+      data: {
+        balance: params.balance,
+      },
     });
   }
 }

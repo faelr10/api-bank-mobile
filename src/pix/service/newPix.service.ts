@@ -1,5 +1,5 @@
 import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
-import { AccountRepository } from 'src/account/accountRepository/account.respository';
+import { AccountRepository } from 'src/account/repository/account.respository';
 import { IAccountRepository } from 'src/account/structure/structure';
 import { ProfileRepository } from 'src/profile/profile.repository';
 import { IProfileRepository } from 'src/profile/structure/structure';

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
-import { AccountRepository } from 'src/account/accountRepository/account.respository';
+import { AccountRepository } from 'src/account/repository/account.respository';
 import { ProfileRepository } from 'src/profile/profile.repository';
 import { PixController } from './pix.controller';
 import { NewPixService } from './service/newPix.service';

@@ -7,7 +7,7 @@ import {
   IProfileRepository,
 } from '../structure/structure';
 import * as bcrypt from 'bcrypt';
-import { AccountRepository } from 'src/account/accountRepository/account.respository';
+import { AccountRepository } from 'src/account/repository/account.respository';
 import { IAccountRepository } from 'src/account/structure/structure';
 
 @Injectable()

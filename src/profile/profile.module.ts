@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
+import { AccountRepository } from 'src/account/accountRepository/account.respository';
 import { ProfileController } from './profile.controller';
 import { ProfileRepository } from './profile.repository';
 import { CreateProfile } from './service/CreateProfile.service';
-import { GetProfileByIdService } from './service/GetProfileById.service';
-import { GetProfileByKeyService } from './service/getProfileByKeyPix.service';
+import { GetProfileService } from './service/GetProfileById.service';
 
 @Module({
   controllers: [ProfileController],
   providers: [
     CreateProfile,
-    GetProfileByIdService,
+    GetProfileService,
     ProfileRepository,
-    GetProfileByKeyService,
+    AccountRepository,
     PrismaClient,
   ],
 })

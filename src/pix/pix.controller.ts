@@ -1,6 +1,6 @@
 import { Body, Controller, Inject, Param, Post } from '@nestjs/common';
 import { NewPixDto } from './dto/newPix.dto';
-import { NewPixService } from './service/NewPix.service';
+import { NewPixService } from './service/newPix.service';
 import { INewPixResponse, INewPixService } from './structure/structure';
 
 @Controller('pix')

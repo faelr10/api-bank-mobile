@@ -1,12 +1,12 @@
-import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post, Query } from '@nestjs/common';
 import { Profile } from '@prisma/client';
 import { CreateProfileDto } from './dto/createProfile.dto';
+import { GetProfileDto } from './dto/getProfile.dto';
 import { CreateProfile } from './service/CreateProfile.service';
-import { GetProfileByIdService } from './service/GetProfileById.service';
-import { GetProfileByKeyService } from './service/getProfileByKeyPix.service';
+import { GetProfileService } from './service/GetProfileById.service';
 import {
   ICreateProfileService,
-  IGetProfileByIdService,
+  IGetProfileService,
 } from './structure/structure';
 
 @Controller('profile')
@@ -14,9 +14,8 @@ export class ProfileController {
   constructor(
     @Inject(CreateProfile)
     private readonly createProfileService: ICreateProfileService,
-    @Inject(GetProfileByIdService)
-    private readonly getProfileByIdService: IGetProfileByIdService,
-    private readonly getProfileByKeyPixService: GetProfileByKeyService,
+    @Inject(GetProfileService)
+    private readonly getProfileService: IGetProfileService,
   ) {}
 
   @Post()
@@ -24,13 +23,8 @@ export class ProfileController {
     return this.createProfileService.execute(data);
   }
 
-  @Get(':id')
-  getProfileById(@Param('id') id: string): Promise<any> {
-    return this.getProfileByIdService.execute({ id });
-  }
-
-  @Get('keyPix/:id')
-  getProfileByKeyPix(@Param('id') id: string): Promise<any> {
-    return this.getProfileByKeyPixService.execute({ id });
+  @Get()
+  getProfileById(@Query() params: GetProfileDto): Promise<any> {
+    return this.getProfileService.execute(params);
   }
 }

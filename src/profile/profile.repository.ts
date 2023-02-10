@@ -1,10 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Account, PrismaClient, Profile } from '@prisma/client';
-import {
-  ICreateProfile,
-  IProfileRepository,
-  IUpdateAccountParams,
-} from './structure/structure';
+import { PrismaClient, Profile } from '@prisma/client';
+import { ICreateProfile, IProfileRepository } from './structure/structure';
 
 @Injectable()
 export class ProfileRepository implements IProfileRepository {
@@ -25,17 +21,6 @@ export class ProfileRepository implements IProfileRepository {
       where,
       include: {
         Account: true,
-      },
-    });
-  }
-
-  update(params: IUpdateAccountParams): Promise<Account> {
-    return this.prisma.account.update({
-      where: {
-        id: params.id,
-      },
-      data: {
-        balance: params.balance,
       },
     });
   }

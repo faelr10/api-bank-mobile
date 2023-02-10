@@ -27,7 +27,7 @@ model Account {
   id         String   @id @default(uuid())
   balance    String   @db.VarChar(255)
   profile_id String   @db.VarChar(255)
-  profile    Profile  @relation(fields: [profile_id], references: [id])
+  profile    Profile  @relation(fields: [profile_id], references: [id],onDelete: Cascade)
   created_at DateTime @default(now()) @db.Timestamptz()
   updated_at DateTime @default(now()) @updatedAt @db.Timestamptz()
 

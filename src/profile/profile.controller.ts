@@ -1,11 +1,22 @@
-import { Body, Controller, Get, Inject, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { Profile } from '@prisma/client';
 import { CreateProfileDto } from './dto/createProfile.dto';
 import { GetProfileDto } from './dto/getProfile.dto';
 import { CreateProfile } from './service/CreateProfile.service';
 import { GetProfileService } from './service/GetProfileById.service';
+import { DeleteProfileService } from './service/IDeleteParams.service';
 import {
   ICreateProfileService,
+  IDeleteProfileService,
   IGetProfileService,
 } from './structure/structure';
 
@@ -16,6 +27,8 @@ export class ProfileController {
     private readonly createProfileService: ICreateProfileService,
     @Inject(GetProfileService)
     private readonly getProfileService: IGetProfileService,
+    @Inject(DeleteProfileService)
+    private readonly deleteProfileService: IDeleteProfileService,
   ) {}
 
   @Post()
@@ -26,5 +39,10 @@ export class ProfileController {
   @Get()
   getProfileById(@Query() params: GetProfileDto): Promise<any> {
     return this.getProfileService.execute(params);
+  }
+
+  @Delete(':id')
+  deletePermission(@Param('id') id: string): Promise<void> {
+    return this.deleteProfileService.execute({ id });
   }
 }

@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaClient, Profile } from '@prisma/client';
-import { ICreateProfile, IProfileRepository } from './structure/structure';
+import {
+  ICreateProfile,
+  IDeleteParams,
+  IProfileRepository,
+} from './structure/structure';
 
 @Injectable()
 export class ProfileRepository implements IProfileRepository {
@@ -12,6 +16,7 @@ export class ProfileRepository implements IProfileRepository {
         email: params.email,
         name: params.name,
         passwordHash: params.password,
+        keyPix: params.email,
       },
     });
   }
@@ -23,5 +28,15 @@ export class ProfileRepository implements IProfileRepository {
         Account: true,
       },
     });
+  }
+
+  async delete(params: IDeleteParams): Promise<void> {
+    await this.prisma.profile.delete({
+      where: {
+        id: params.id,
+      },
+    });
+
+    return;
   }
 }

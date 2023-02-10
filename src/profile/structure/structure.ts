@@ -11,6 +11,10 @@ export type IGetProfileParams = {
   value: string;
 };
 
+export type IDeleteParams = {
+  id: string;
+};
+
 export interface ICreateProfileService {
   execute(params: ICreateProfile): Promise<Profile>;
 }
@@ -18,7 +22,12 @@ export interface IGetProfileService {
   execute(params: IGetProfileParams): Promise<any>;
 }
 
+export interface IDeleteProfileService {
+  execute(params: IDeleteParams): Promise<void>;
+}
+
 export interface IProfileRepository {
   create(params: ICreateProfile): Promise<Profile>;
   exists(where: Partial<Profile> | any, select?: object): Promise<any>;
+  delete(params: IDeleteParams): Promise<void>;
 }

@@ -34,7 +34,7 @@ export class PaymentQrCodeService implements IPaymentQrCode {
       Number(verifyProfileLogged.Account[0].balance) - Number(params.value),
     );
     await this.accountRepository.update({
-      id: verifyProfileLogged.id,
+      id: verifyProfileLogged.Account[0].id,
       balance: newBalanceProfileLogged,
     });
 
@@ -42,7 +42,7 @@ export class PaymentQrCodeService implements IPaymentQrCode {
       Number(verifyProfileQrCode.Account[0].balance) + Number(params.value),
     );
     await this.accountRepository.update({
-      id: verifyProfileQrCode.id,
+      id: verifyProfileQrCode.Account[0].id,
       balance: newBalanceProfileQrCode,
     });
 

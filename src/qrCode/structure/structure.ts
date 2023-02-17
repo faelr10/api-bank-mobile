@@ -6,6 +6,7 @@ export type IPaymentQrCodeParams = {
   idUserQrCode: string;
   idUserLogged: string;
   value: string;
+  passwordConfirmPayment: string;
 };
 
 export interface IPaymentQrCode {

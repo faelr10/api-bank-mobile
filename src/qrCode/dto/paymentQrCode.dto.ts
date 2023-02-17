@@ -13,4 +13,8 @@ export class PaymentQrCodeDto implements IPaymentQrCodeParams {
   @IsString()
   @IsNotEmpty()
   value: string;
+
+  @IsString()
+  @IsNotEmpty()
+  passwordConfirmPayment: string;
 }

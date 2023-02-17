@@ -8,6 +8,7 @@ import {
   IPaymentQrCodeParams,
   IPaymentQrCodeResponse,
 } from '../structure/structure';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class PaymentQrCodeService implements IPaymentQrCode {
@@ -29,6 +30,13 @@ export class PaymentQrCodeService implements IPaymentQrCode {
     });
     if (!verifyProfileQrCode)
       throw new ForbiddenException('User Qrcode does not exists!');
+
+    const verifyPassword = await bcrypt.compare(
+      params.passwordConfirmPayment,
+      verifyProfileLogged.passwordHash,
+    );
+    if (!verifyPassword)
+      throw new ForbiddenException('Email or Password invalid!');
 
     const newBalanceProfileLogged = String(
       Number(verifyProfileLogged.Account[0].balance) - Number(params.value),
